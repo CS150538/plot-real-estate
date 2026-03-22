@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import ChalapathiFortune from './components/ChalapathiFortune'
+import ChalapathifortuneUpdated from './components/ChalapathifortuneUpdated'
+// import ChalapathiFortune from './components/ChalapathiFortune'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div>
-      <ChalapathiFortune/>
+      {/* <ChalapathiFortune/> */}
       {/* <KarthikFortune/> */}
+      <ChalapathifortuneUpdated/>
     </div>
   )
 }

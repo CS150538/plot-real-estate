@@ -57,13 +57,13 @@ const locations = ["Rachloor","Kadthal","Maheshwaram","Amangal","Tukuguda","Sris
 const FILTERS   = ["All","Open Plot","Villa Plot"];
 
 /* ── MAIN COMPONENT ── */
-export default function ChalapathiFortune() {
+export default function ChalapathifortuneUpdated() {
   const [dark,      setDark]      = useState(false);
   const [filter,    setFilter]    = useState("All");
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
   const [lightbox,  setLightbox]  = useState(null);
-  const [form,      setForm]      = useState({ name:"", phone:"", email:"" });
+  const [result,    setResult]    = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   /* initialise data using asset imports */
@@ -108,10 +108,28 @@ export default function ChalapathiFortune() {
     },
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+  /* ── Web3Forms email notification ── */
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+    formData.append("access_key", "79f026f5-caef-4947-bbef-8b2d198876856");
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    if (data.success) {
+      setSubmitted(true);
+      setResult("Form Submitted Successfully");
+      const name = formData.get("name");
+      alert(`Thanks ${name}! We received your enquiry and will contact you shortly.`);
+      event.target.reset();
+      setTimeout(() => setSubmitted(false), 5000);
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
   };
 
   return (
@@ -325,7 +343,7 @@ export default function ChalapathiFortune() {
               style={{ width:50, height:27, borderRadius:14, background:dark?G:T.pill, border:"none", cursor:"pointer", position:"relative", transition:"background 0.3s", flexShrink:0 }}>
               <span style={{ width:21, height:21, borderRadius:"50%", background:"#fff", position:"absolute", top:3, left:dark?26:3, transition:"left 0.28s", display:"flex", alignItems:"center", justifyContent:"center", fontSize:11 }}>{dark?"☀":"🌙"}</span>
             </button>
-            <a href="tel:+91 99127 52207" style={{ marginLeft:8 }}>
+            <a href="tel:+919912752207" style={{ marginLeft:8 }}>
               <button className="btn-g" style={{ padding:"8px 16px", borderRadius:8, fontSize:13, fontWeight:600, whiteSpace:"nowrap" }}>📞 99127 52207</button>
             </a>
           </nav>
@@ -353,7 +371,7 @@ export default function ChalapathiFortune() {
                 <span style={{ color:G, fontSize:11 }}>▸</span>{n}
               </a>
             ))}
-            <a href="tel:+91 99127 52207" onClick={closeMenu}>
+            <a href="tel:+919912752207" onClick={closeMenu}>
               <button className="btn-g" style={{ marginTop:16, width:"100%", padding:"13px", borderRadius:9, fontSize:15, fontWeight:600 }}>📞 Call Now: 99127 52207</button>
             </a>
           </div>
@@ -387,7 +405,7 @@ export default function ChalapathiFortune() {
                 <a href="#properties">
                   <button className="btn-g" style={{ padding:"13px 28px", borderRadius:9, fontSize:15, fontWeight:600, display:"block", width:"100%" }}>View Properties →</button>
                 </a>
-                <a href="tel:+91 99127 52207">
+                <a href="tel:+919912752207">
                   <button className="btn-outline" style={{ padding:"13px 28px", borderRadius:9, fontSize:15, fontWeight:500, border:`1.5px solid ${T.border}`, color:T.text, display:"block", width:"100%" }}
                     onMouseEnter={e=>{ e.currentTarget.style.borderColor=G; e.currentTarget.style.color=G; }}
                     onMouseLeave={e=>{ e.currentTarget.style.borderColor=T.border; e.currentTarget.style.color=T.text; }}>
@@ -482,7 +500,7 @@ export default function ChalapathiFortune() {
                     <div style={{ fontSize:13, color:T.sub, marginBottom:14 }}>📐 {p.area}</div>
                     <div style={{ borderTop:`1px solid ${T.border}`, paddingTop:13, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                       <span style={{ fontSize:13, fontWeight:600, color:G }}>Enquire for Price</span>
-                      <a href="tel:+91 99127 52207">
+                      <a href="tel:+919912752207">
                         <button className="btn-g" style={{ padding:"7px 14px", borderRadius:7, fontSize:12, fontWeight:600 }}>Call Now</button>
                       </a>
                     </div>
@@ -604,7 +622,7 @@ export default function ChalapathiFortune() {
                   </div>
                 ))}
               </div>
-              <a href="tel:+91 99127 52207">
+              <a href="tel:+919912752207">
                 <button className="btn-g" style={{ padding:"12px 26px", borderRadius:9, fontSize:14, fontWeight:600 }}>📞 Call: 99127 52207</button>
               </a>
             </div>
@@ -656,8 +674,8 @@ export default function ChalapathiFortune() {
               <div style={{ background:T.card, borderRadius:16, border:`1px solid ${T.border}`, padding:"24px 22px" }}>
                 <h3 style={{ fontFamily:"'DM Serif Display',serif", fontSize:18, marginBottom:20, color:T.text }}>Contact Details</h3>
                 {[
-                  ["📞","Phone",   "+91 99127 52207",                      "tel:+91 99127 52207"],
-                  ["📧","Email",   "karthikkumargoud77@gmail.com",       "mailto:karthikkumargoud77@gmail.com"],
+                  ["📞","Phone",   "+91 99127 52207",                      "tel:+919912752207"],
+                  ["📧","Email",   "karthikkumargoud77@gmail.com",          "mailto:karthikkumargoud77@gmail.com"],
                   ["🕘","Hours",  "By arrangement — 7 days a week",         ""],
                 ].map(([icon,label,val,href]) => (
                   <div key={label} style={{ display:"flex", gap:13, marginBottom:15, alignItems:"flex-start" }}>
@@ -686,23 +704,32 @@ export default function ChalapathiFortune() {
                   <div style={{ fontFamily:"'DM Serif Display',serif", fontSize:21, color:T.text, marginBottom:10 }}>Enquiry Sent!</div>
                   <div style={{ color:T.sub, fontSize:14, lineHeight:1.8 }}>
                     Thank you! Our team will contact you shortly.<br/>
-                    Or call: <a href="tel:+91 99127 52207" style={{ color:G, fontWeight:600 }}>99127 52207</a>
+                    Or call: <a href="tel:+919912752207" style={{ color:G, fontWeight:600 }}>99127 52207</a>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={onSubmit}>
+                  {/* Web3Forms hidden access key */}
+                  <input type="hidden" name="access_key" value="79f026f5-caef-4947-bbef-8b2d198876856"/>
+                  <input type="hidden" name="subject" value="New Enquiry — Chalapathi Fortune City"/>
+                  <input type="hidden" name="from_name" value="Chalapathi Fortune City Website"/>
                   <h3 style={{ fontFamily:"'DM Serif Display',serif", fontSize:20, marginBottom:20, color:T.text }}>Send an Enquiry</h3>
                   <div className="form-row" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:12 }}>
-                    <input type="text" placeholder="Full Name *" required value={form.name} onChange={e=>setForm({...form,name:e.target.value})}
+                    <input type="text" name="name" placeholder="Full Name *" required
                       style={{ padding:"12px 13px", borderRadius:9, border:`1.5px solid ${T.border}`, background:T.raised, color:T.text, fontSize:14, width:"100%" }}/>
-                    <input type="tel" placeholder="Phone Number *" required value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})}
+                    <input type="tel" name="phone" placeholder="Phone Number *" required
                       style={{ padding:"12px 13px", borderRadius:9, border:`1.5px solid ${T.border}`, background:T.raised, color:T.text, fontSize:14, width:"100%" }}/>
                   </div>
-                  <input type="email" placeholder="Email Address (optional)" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}
+                  <input type="email" name="email" placeholder="Email Address (optional)"
                     style={{ width:"100%", padding:"12px 13px", borderRadius:9, border:`1.5px solid ${T.border}`, background:T.raised, color:T.text, fontSize:14, marginBottom:20 }}/>
-                  <button type="submit" className="btn-g" style={{ width:"100%", padding:"13px", borderRadius:9, fontSize:15, fontWeight:600 }}>Send Enquiry →</button>
+                  <button type="submit" className="btn-g" style={{ width:"100%", padding:"13px", borderRadius:9, fontSize:15, fontWeight:600 }}>
+                    {result === "Sending...." ? "Sending..." : "Send Enquiry →"}
+                  </button>
+                  {result && result !== "Sending...." && result !== "Form Submitted Successfully" && (
+                    <p style={{ textAlign:"center", color:"#e24b4a", fontSize:12, marginTop:10 }}>{result}</p>
+                  )}
                   <p style={{ textAlign:"center", color:T.sub, fontSize:12, marginTop:11 }}>
-                    Or call: <a href="tel:+91 99127 52207" style={{ color:G, fontWeight:600 }}>99127 52207</a>
+                    Or call: <a href="tel:+919912752207" style={{ color:G, fontWeight:600 }}>99127 52207</a>
                   </p>
                 </form>
               )}
@@ -710,7 +737,6 @@ export default function ChalapathiFortune() {
           </div>
         </div>
       </section>
-
 
       {/* ══════════════════════════════════════════
           FOOTER
@@ -724,7 +750,7 @@ export default function ChalapathiFortune() {
                 <div style={{ fontFamily:"'DM Serif Display',serif", fontSize:16, color:"#fff", lineHeight:1.2 }}>Chalapathi Fortune City</div>
               </div>
               <p style={{ color:"rgba(255,255,255,0.38)", fontSize:13, lineHeight:1.9, maxWidth:210 }}>Trusted real estate partner in Rachloor, Maheshwaram, Kadthal &amp; surrounding areas.</p>
-              <a href="tel:+91 99127 52207" style={{ display:"inline-block", marginTop:14, color:"#4ade80", fontSize:14, fontWeight:600 }}>📞 99127 52207</a>
+              <a href="tel:+919912752207" style={{ display:"inline-block", marginTop:14, color:"#4ade80", fontSize:14, fontWeight:600 }}>📞 99127 52207</a>
             </div>
             {[
               ["Properties",["Open Plots","Villa Plots","Villas","New Layouts"]],
