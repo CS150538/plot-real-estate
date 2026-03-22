@@ -710,7 +710,7 @@ export default function ChalapathifortuneUpdated() {
               ) : (
                 <form onSubmit={onSubmit}>
                   {/* Web3Forms hidden access key */}
-                  <input type="hidden" name="access_key" value="79f026f5-caef-4947-bbef-8b2d198876856"/>
+                  <input type="hidden" name="access_key" value="79f026f5-caef-4947-bbef-8b2d121cae08"/>
                   <input type="hidden" name="subject" value="New Enquiry — Chalapathi Fortune City"/>
                   <input type="hidden" name="from_name" value="Chalapathi Fortune City Website"/>
                   <h3 style={{ fontFamily:"'DM Serif Display',serif", fontSize:20, marginBottom:20, color:T.text }}>Send an Enquiry</h3>
