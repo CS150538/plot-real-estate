@@ -57,7 +57,7 @@ const locations = ["Rachloor","Kadthal","Maheshwaram","Amangal","Tukuguda","Sris
 const FILTERS   = ["All","Open Plot","Villa Plot"];
 
 /* ── MAIN COMPONENT ── */
-export default function ChalapathifortuneUpdated() {
+export default function ChalapathiDuplicate() {
   const [dark,      setDark]      = useState(false);
   const [filter,    setFilter]    = useState("All");
   const [menuOpen,  setMenuOpen]  = useState(false);
@@ -113,6 +113,7 @@ export default function ChalapathifortuneUpdated() {
     event.preventDefault();
     setResult("Sending....");
     const formData = new FormData(event.target);
+    formData.append("access_key", "79f026f5-caef-4947-bbef-8b2d121cae08");
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
