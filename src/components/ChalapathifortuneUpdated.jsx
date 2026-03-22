@@ -113,7 +113,7 @@ export default function ChalapathifortuneUpdated() {
     event.preventDefault();
     setResult("Sending....");
     const formData = new FormData(event.target);
-    formData.append("access_key", "79f026f5-caef-4947-bbef-8b2d198876856");
+    formData.append("access_key", "79f026f5-caef-4947-bbef-8b2d121cae08");
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
