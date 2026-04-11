@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import ChalapathifortuneUpdated from './components/ChalapathifortuneUpdated'
+import Bujjithalli from './components/Bujjithalli'
+// import ChalapathifortuneUpdated from './components/ChalapathifortuneUpdated'
 // import ChalapathiFortune from './components/ChalapathiFortune'
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div>
       {/* <ChalapathiFortune/> */}
       {/* <KarthikFortune/> */}
-      <ChalapathifortuneUpdated/>
+      {/* <ChalapathifortuneUpdated/> */}
+      <Bujjithalli/>
     </div>
   )
 }
